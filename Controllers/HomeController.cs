@@ -8,7 +8,7 @@ namespace DevingOps.Controllers
 {
     public class HomeController : Controller
     {
-        public ActionResult Index()
+        public ActionReult Index()
         {
             return View();
         }
