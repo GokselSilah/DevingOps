@@ -13,6 +13,8 @@ namespace DevingOps.Controllers
             return View();
         }
 
+
+//selamlar
         public ActionResult About()
         {
             ViewBag.Message = "Your application description page.";
