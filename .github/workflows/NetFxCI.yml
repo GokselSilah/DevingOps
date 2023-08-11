@@ -1,3 +1,4 @@
+
 name: CI
 
 on:
@@ -17,13 +18,13 @@ jobs:
       uses: microsoft/setup-msbuild@v1.1
 
     - name: Setup NuGet.exe for use with actions
-      uses: NuGet/setup-nuget@v1.0.2
+      uses: NuGet/setup-nuget@v1
 
     - name: Restore NuGet packages
       run: nuget restore DevingOps.sln
 
     - name: Build the Solution
-      run: msbuild DevingOps.sln
+      run: msbuild DevingOps.sln /p:Configuration=Release
       
     - name: Build with dotnet
       shell: cmd
