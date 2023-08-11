@@ -7,7 +7,7 @@ on:
     branches: [ master ]
 
 jobs:
-  build:
+  build-and-deploy:
     runs-on: [windows-latest]
 
     steps:
@@ -25,7 +25,18 @@ jobs:
     - name: Build the Solution
       run: msbuild DevingOps.sln /p:Configuration=Release
 
-    - uses: devops-actions/json-to-file@v1.0.0
-      with:
-        json: '{"test": "test"}'
-        filename: 'test.json'
+    - name: Build with dotnet
+      shell: cmd
+      run: dotnet build --configuration Release
+
+    - name: Dotnet publish
+      shell: cmd
+      run: |
+        dotnet publish -c Release -o .\myapp
+
+    - name: Deploy to IIS
+      shell: cmd
+      run: |
+        iisreset /stop
+        xcopy /s /y .\myapp\* c:\www\github-action-iis-demo.com
+        iisreset /start
