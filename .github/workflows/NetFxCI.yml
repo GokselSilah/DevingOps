@@ -25,10 +25,29 @@ jobs:
 
     - name: Build the Solution
       run: msbuild DevingOps.sln /p:Configuration=Release
+
+    - name: SmarterASP.NET Web Deploy
+  # You may pin to the exact commit or the version.
+  # uses: jahbenjah/SmarterASP.NET-web-deploy@845c19cd4b003b854908a1008b34fe97e98a56b1
+      uses: jahbenjah/SmarterASP.NET-web-deploy@1.0.0.alpha.8
+      with:
+    # IIS website name
+        website-name: ${{ secrets.WEBSITE_NAME }}
+    # IIS server computer name
+        server-computer-name: ${{ secrets.SERVER_COMPUTER_NAME }}
+    # IIS server username
+        server-username: 
+    # IIS server password
+        server-password: 
+    # The source directory for payload
+        source-path: # optional, default is \publish\
+    # The target directory for payload
+        target-path: # optional, default is ""
+    # Delete files on the destination computer that do not exist on the source computer
+        target-delete: # optional, default is false
             
-    - name: Deploy to IIS
+    - name: Restart IIS
       shell: cmd
       run: |
         iisreset /stop
-        xcopy /s /y .\myapp\* c:\www\gh-cd-demo.com
         iisreset /start
