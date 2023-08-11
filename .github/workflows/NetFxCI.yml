@@ -25,10 +25,6 @@ jobs:
     - name: Build the Solution
       run: msbuild DevingOps.sln /p:Configuration=Release
 
-    - name: Build with dotnet
-      shell: cmd
-      run: dotnet build --configuration Release
-
     - name: Dotnet publish
       shell: cmd
       run: |
