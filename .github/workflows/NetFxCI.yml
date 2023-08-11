@@ -25,7 +25,7 @@ jobs:
 
 
     - name: Build and Publish Web App
-      run: msbuild DevingOps.sln /p:Configuration=Release /p:DeployOnBuild=true /p:PublishProfile=FolderProfile
+      run: msbuild DevingOps.sln /p:Configuration=Release /p:DeployOnBuild=true /t:WebPublish /p:WebPublishMethod=FileSystem /p:publishUrl=gh-cd-demo.com /p:PackageAsSingleFile=false
 
     - name: Upload Artifact
       uses: actions/upload-artifact@v1.0.0
