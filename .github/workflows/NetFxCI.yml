@@ -36,9 +36,9 @@ jobs:
     # IIS server computer name
         server-computer-name: ${{ secrets.SERVER_COMPUTER_NAME }}
     # IIS server username
-        server-username: gokse
+        server-username: ${{ secrets.SERVER_USERNAME }}
     # IIS server password
-        server-password: "160610"
+        server-password: ${{ secrets.SERVER_PASSWORD }}
     # The source directory for payload
         source-path: # optional, default is \publish\
     # The target directory for payload
