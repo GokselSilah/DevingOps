@@ -25,16 +25,7 @@ jobs:
 
     - name: Build the Solution
       run: msbuild DevingOps.sln /p:Configuration=Release
-      
-    - name: Build with dotnet
-      shell: cmd
-      run: dotnet build --configuration Release .\myapp\* C:\www\gh-cd-demo.com
-
-    - name: Dotnet publish
-      shell: cmd
-      run: |
-        dotnet publish -c Release -o .\myapp\* C:\www\gh-cd-demo.com
-
+            
     - name: Deploy to IIS
       shell: cmd
       run: |
