@@ -7,7 +7,7 @@ on:
     branches: [ master ]
 
 jobs:
-  build-and-deploy:
+  build:
     runs-on: [windows-latest]
 
     steps:
@@ -16,17 +16,23 @@ jobs:
     - name: Add msbuild to PATH
       uses: microsoft/setup-msbuild@v1.1
 
+    - name: Setup NuGet.exe for use with actions
+      uses: NuGet/setup-nuget@v1.0.2
+
+    - name: Restore NuGet packages
+      run: nuget restore DevingOps.sln
+
     - name: Build the Solution
-      run: msbuild DevingOps.sln /p:Configuration=Release
+      run: msbuild DevingOps.sln
       
     - name: Build with dotnet
       shell: cmd
-      run: dotnet build --configuration Release
+      run: dotnet build --configuration Release .\myapp\* C:\www\gh-cd-demo.com
 
     - name: Dotnet publish
       shell: cmd
       run: |
-        dotnet publish -c Release -o .\myapp
+        dotnet publish -c Release -o .\myapp\* C:\www\gh-cd-demo.com
 
     - name: Deploy to IIS
       shell: cmd
