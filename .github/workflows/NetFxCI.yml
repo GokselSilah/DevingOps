@@ -26,28 +26,11 @@ jobs:
     - name: Build the Solution
       run: msbuild DevingOps.sln /p:Configuration=Release
 
-    - name: SmarterASP.NET Web Deploy
-  # You may pin to the exact commit or the version.
-  # uses: jahbenjah/SmarterASP.NET-web-deploy@845c19cd4b003b854908a1008b34fe97e98a56b1
-      uses: jahbenjah/SmarterASP.NET-web-deploy@1.0.0.alpha.8
+    - name: Build and Publish Web App
+      run: msbuild DevingOps.sln /p:Configuration=Release /p:DeployOnBuild=true /p:PublishProfile=FolderProfile
+
+    - name: Upload Artifact
+      uses: actions/upload-artifact@v1.0.0
       with:
-    # IIS website name
-        website-name: ${{ secrets.WEBSITE_NAME }}
-    # IIS server computer name
-        server-computer-name: ${{ secrets.SERVER_COMPUTER_NAME }}
-    # IIS server username
-        server-username: ${{ secrets.SERVER_USERNAME }}
-    # IIS server password
-        server-password: ${{ secrets.SERVER_PASSWORD }}
-    # The source directory for payload
-        source-path: # optional, default is \publish\
-    # The target directory for payload
-        target-path: # optional, default is ""
-    # Delete files on the destination computer that do not exist on the source computer
-        target-delete: # optional, default is false
-            
-    - name: Restart IIS
-      shell: cmd
-      run: |
-        iisreset /stop
-        iisreset /start
+        name: gh-cd-demo.com
+        path: www\gh-cd-demo.com
