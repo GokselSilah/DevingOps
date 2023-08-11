@@ -38,5 +38,5 @@ jobs:
       shell: cmd
       run: |
         iisreset /stop
-        xcopy /s /y .\myapp\* c:\www\github-action-iis-demo.com
+        xcopy /s /y .\myapp\* c:\www\gh-cd-demo.com
         iisreset /start
