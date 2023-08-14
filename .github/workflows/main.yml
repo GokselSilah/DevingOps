@@ -23,7 +23,7 @@ jobs:
       run: nuget restore DevingOps.sln
 
     - name: Build the Solution
-      run: msbuild DevingOps.csproj /p:DeployOnBuild=true /p:PublishProfile=FolderProfile.pubxml
+      run: msbuild DevingOps.csproj /p:DeployOnBuild=true /p:PublishProfile="C:\Users\gokse\Desktop\Everything\Udemy Projeler\DevingOps\Properties\PublishProfiles/MyProfile.pubxml"
       
     - name: IIS Deploy
   # You may pin to the exact commit or the version.
