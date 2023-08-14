@@ -25,6 +25,9 @@ jobs:
     - name: Build the Solution
       run: msbuild DevingOps.sln /p:Configuration=Release
 
+    - name: Build For Deploy
+      run: msbuild /p:DeployOnBuild=true /p:PublishProfile=FolderProfile
+
     - name: IIS Deploy
   # You may pin to the exact commit or the version.
   # uses: ChristopheLav/iis-deploy@3b6a141da6e1923a4af25e01734ab58c081f8444
