@@ -33,7 +33,7 @@ jobs:
     # IIS website name
         website-name: gh-cd-demo.com
     # MS Deploy Service URL
-        msdeploy-service-url: C:\Program Files (x86)\IIS\Microsoft Web Deploy V3
+        msdeploy-service-url: http://gh-cd-demo.com:81
     # Username used by Basic authentication to the MS Deploy Service
         msdeploy-username: gokse
     # Password used by Basic authentication to the MS Deploy Service
