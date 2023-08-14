@@ -29,6 +29,6 @@ jobs:
         msbuild /p:Configuration=Release /t:Publish DevingOps.csproj
 
         # Replace 'C:\Your\IIS\Path' with the actual path of your IIS web application
-        xcopy /E /I /Y "DevingOps\bin\Release\PublishOutput\*" "C:\www\gh-cd-demo.com"
+        xcopy /E /I /Y "C:\Users\gokse\Desktop\Everything\Udemy Projeler\DevingOps" "C:\www\gh-cd-demo.com"
 
 # Daha fazla adım ekleyebilirsiniz, örneğin testler, paket oluşturma, bildirimler vb.
