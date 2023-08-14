@@ -8,25 +8,21 @@ on:
     branches: [ master ]
 
 jobs:
-  build:
-    runs-on: [windows-latest]
-
+  build-deploy:
+    runs-on: windows-latest
+  
     steps:
-    - uses: actions/checkout@v2
-
-    - name: Add msbuild to PATH
-      uses: microsoft/setup-msbuild@v1.1
-
-    - name: Setup NuGet.exe for use with actions
-      uses: NuGet/setup-nuget@v1
-
-    - name: Restore NuGet packages
-      run: nuget restore DevingOps.sln
-
-    - name: Build Web App
-      run: msbuild DevingOps.sln /p:Configuration=Release
-
-    - uses: cschleiden/webdeploy-action@v1
-      with:
-        webSiteName: 'gh-cd-demo.com'
-        package: ${{ format('{0}\dist', runner.workspace) }}
+    - name: Checkout repository
+      uses: actions/checkout@v2
+  
+    - name: Setup MSBuild
+      uses: microsoft/setup-msbuild@v1.0.0
+  
+    - name: Restore NuGet Packages
+      run: nuget restore path/to/your/DevingOps.sln
+  
+    - name: Build
+      run: msbuild path/to/your/DevingOps.sln /p:Configuration=Release
+  
+    - name: Publish to IIS
+      run: msdeploy -verb:sync -source:package=$(System.DefaultWorkingDirectory)www\gh-cd-demo.com -dest:auto,computerName='http://gh-cd-demo.com:81/',username='gokse',password='160610',authtype='basic',includeAcls='False'
