@@ -1,34 +1,33 @@
-name: Deploy to Local IIS
+name: Deploy to IIS
 
 on:
   push:
     branches:
-      - main  # veya kullanmak istediğiniz varsayılan dal adı
+      - main
 
 jobs:
   build-and-deploy:
-    runs-on: windows-latest  # Windows çalışma ortamı
+    runs-on: windows-latest
 
     steps:
-    - name: Checkout Repository
+    - name: Checkout repository
       uses: actions/checkout@v2
 
-    - name: Setup .NET Framework
-      uses: actions/setup-dotnet@v2
-      with:
-        dotnet-version: '4.x'  # ASP.NET Framework 4.x sürümüne uygun .NET sürümü
+    - name: Setup MSBuild
+      uses: microsoft/setup-msbuild@v1.0.0
 
-    - name: Build and Publish
-      run: |
-        # ASP.NET Framework projenizi derleyin
-        msbuild /p:Configuration=Release /p:DeployOnBuild=true /p:WebPublishMethod=Package /p:PackageAsSingleFile=true /p:SkipInvalidConfigurations=true
+    - name: Restore NuGet packages
+      run: nuget restore YourSolution.sln
 
-    - name: Deploy to IIS
-      run: |
-        # Yayınladığınız dosyaları IIS'in belirlediğiniz sitesine kopyalayın
-        Copy-Item -Path "C:\www\gh-cd-demo.com" -Destination "C:\inetpub\wwwroot\gh-cd-demo.com" -Recurse -Force
+    - name: Build
+      run: msbuild /p:Configuration=Release DevingOps.sln
 
-      # Opsiyonel: Eğer IIS App Pool'unu yeniden başlatmak isterseniz
-    - name: Restart IIS App Pool
+    - name: Publish to IIS
       run: |
-          iisreset /ap "gh-cd-demo.com"
+        # Publish the project to a directory
+        msbuild /p:Configuration=Release /t:Publish DevingOps.csproj
+
+        # Replace 'C:\Your\IIS\Path' with the actual path of your IIS web application
+        xcopy /E /I /Y "DevingOps\bin\Release\PublishOutput\*" "C:\www\gh-cd-demo.com"
+
+# Daha fazla adım ekleyebilirsiniz, örneğin testler, paket oluşturma, bildirimler vb.
