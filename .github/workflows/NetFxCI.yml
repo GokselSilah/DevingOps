@@ -26,5 +26,7 @@ jobs:
     - name: Build Web App
       run: msbuild DevingOps.sln /p:Configuration=Release
 
-    - name: Publish to IIS
-      run: msdeploy -verb:sync -source:package=C:\www\gh-cd-demo.com.zip -dest:auto,computerName='http:192.168.1.16:81/msdeploy.axd?site=gh-cd-demo.com',username='gokse',password='160610',authtype='basic'
+    - uses: cschleiden/webdeploy-action@v1
+      with:
+        webSiteName: 'gh-cd-demo.com'
+        package: ${{ format('{0}\dist', runner.workspace) }}
