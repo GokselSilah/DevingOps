@@ -21,7 +21,7 @@ jobs:
       run: nuget restore YourSolution.sln
 
     - name: Build
-      run: msbuild /p:Configuration=Release DevingOps.sln
+      run: msbuild DevingOps.sln /p:Configuration=Release
 
     - name: Publish to IIS
       run: |
