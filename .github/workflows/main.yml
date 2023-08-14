@@ -23,7 +23,7 @@ jobs:
       run: nuget restore DevingOps.sln
 
     - name: Build the Solution
-      run: msbuild DevingOps.sln /p:Configuration=Release /p:DeployOnBuild=true
+      run: msbuild /t:restore /t:build /p:WebPublishMethod=FileSystem /p:publishUrl=C:\www\gh-cd-demo.com /p:DeleteExistingFiles=True /p:LastUsedPlatform="Any CPU" /p:Configuration=Release
 
     - name: IIS Deploy
   # You may pin to the exact commit or the version.
