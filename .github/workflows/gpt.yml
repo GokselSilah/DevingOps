@@ -3,7 +3,7 @@ name: Deploy to Local IIS
 on:
   push:
     branches:
-      - main  # veya kullanmak istediğiniz varsayılan dal adı
+      - master  # veya kullanmak istediğiniz varsayılan dal adı
 
 jobs:
   build-and-deploy:
