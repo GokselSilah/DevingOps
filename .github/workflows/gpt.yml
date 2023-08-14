@@ -3,7 +3,8 @@ name: Deploy to IIS
 on:
   push:
     branches:
-      - main
+      -master
+
 
 jobs:
   build-and-deploy:
