@@ -20,8 +20,13 @@ env:
   # https://docs.github.com/actions/learn-github-actions/managing-complex-workflows#using-a-build-matrix
   BUILD_CONFIGURATION: Release
 
-permissions:
-  contents: read
+  IIS_SERVER_COMPUTER_NAME: ${{ secrets.IIS_SERVER_COMPUTER_NAME }}
+  IIS_WEBSITE_NAME: ${{ secrets.IIS_WEBSITE_NAME }}
+  IIS_SERVER_USERNAME: ${{ secrets.IIS_SERVER_USERNAME }}
+  IIS_SERVER_PASSWORD: ${{ secrets.IIS_SERVER_PASSWORD }}
+  RECYCLE_APP_NAME: ${{ secrets.RECYCLE_APP_NAME }}
+  WEBSITE_CONTENT_PATH: ${{ secrets.WEBSITE_CONTENT_PATH }}    
+
 
 jobs:
   build:
@@ -41,4 +46,14 @@ jobs:
       working-directory: ${{env.GITHUB_WORKSPACE}}
       # Add additional options to the MSBuild command line here (like platform or verbosity level).
       # See https://docs.microsoft.com/visualstudio/msbuild/msbuild-command-line-reference
-      run: msbuild /m /p:Configuration=${{env.BUILD_CONFIGURATION}} ${{env.SOLUTION_FILE_PATH}}
+      run: msbuild..exe DevingOps.sln nologo /nr:false /p:DeployOnBuild=true /p:DeployDefaultTarget=WebPublish /p:WebPublishMethod=FileSystem /p:DeleteExistingFiles=True /p:platform="Any CPU" /p:configuration="Release" /p:PublishUrl="../_build"
+    
+    - name: Stop Application Pool
+      shell: cmd
+      run: '"C:/Program Files (x86)/IIS/Microsoft Web Deploy V3/msdeploy.exe" -verb:sync -allowUntrusted -source:recycleApp -dest:recycleApp="${{ env.RECYCLE_APP_NAME }}",recycleMode="StopAppPool",computerName="${{ env.IIS_SERVER_COMPUTER_NAME }}/msdeploy.axd?site=${{ env.IIS_WEBSITE_NAME }}",username="${{ env.IIS_SERVER_USERNAME }}",password="${{ env.IIS_SERVER_PASSWORD }}",AuthType="Basic"'
+    - name: Deploy Application
+      shell: cmd
+      run: '"C:/Program Files (x86)/IIS/Microsoft Web Deploy V3/msdeploy.exe" -verb:sync -allowUntrusted -enableRule:DoNotDeleteRule -source:contentPath="%CD%\_build" -dest:contentPath="${{ env.WEBSITE_CONTENT_PATH }}",computerName="${{ env.IIS_SERVER_COMPUTER_NAME }}/msdeploy.axd?site=${{ env.IIS_WEBSITE_NAME }}",username="${{ env.IIS_SERVER_USERNAME }}",password="${{ env.IIS_SERVER_PASSWORD }}",authtype="Basic"'
+    - name: Start Application Pool
+      shell: cmd
+      run: '"C:/Program Files (x86)/IIS/Microsoft Web Deploy V3/msdeploy.exe" -verb:sync -allowUntrusted -source:recycleApp -dest:recycleApp="${{ env.RECYCLE_APP_NAME }}",recycleMode="StartAppPool",computerName="${{ env.IIS_SERVER_COMPUTER_NAME }}/msdeploy.axd?site=${{ env.IIS_WEBSITE_NAME }}",username="${{ env.IIS_SERVER_USERNAME }}",password="${{ env.IIS_SERVER_PASSWORD }}",AuthType="Basic"'
