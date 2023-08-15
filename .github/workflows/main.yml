@@ -19,37 +19,12 @@ jobs:
     - name: Setup NuGet.exe for use with actions
       uses: NuGet/setup-nuget@v1
 
-    - name: Navigate to Workspace
-      run: cd $GITHUB_WORKSPACE
-
-    - name: Create Build Directory
-      run: mkdir _build
 
     - name: Restore NuGet packages
       run: nuget restore DevingOps.sln
 
     - name: Build the Solution
-      run: msbuild DevingOps.sln 
-          /p:Configuration=Release 
-          /p:DeployOnBuild=true 
-          /p:PublishProfile=FolderProfile
-          /p:DeleteExistingFiles=True 
-          /p:WebPublishMethod=FileSystem
-          /p:PublishProfileRootFolder="C:\Users\gokse\Desktop\Everything\Udemy Projeler\DevingOps\Properties\PublishProfiles"
+      run: msbuild DevingOps.csproj /p:DeployOnBuild=true /p:PublishUrl="C:\www\gh-cd-demo.com"
 
       
-    - name: IIS Deploy
-  # You may pin to the exact commit or the version.
-  # uses: ChristopheLav/iis-deploy@3b6a141da6e1923a4af25e01734ab58c081f8444
-      uses: ChristopheLav/iis-deploy@v1.0.0
-      with:
-    # IIS website name
-        website-name: gh-cd-demo.com
-    # MS Deploy Service URL
-        msdeploy-service-url: http://gh-cd-demo.com:81
-    # Username used by Basic authentication to the MS Deploy Service
-        msdeploy-username: gokse
-    # Password used by Basic authentication to the MS Deploy Service
-        msdeploy-password: 160610
-    # The path to the source directory that will be deployed
-        source-path: C:\www\gh-cd-demo.com
+
