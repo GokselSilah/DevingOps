@@ -14,7 +14,7 @@ jobs:
     - name: Setup MSBuild
       uses: microsoft/setup-msbuild@v1.1
       with:
-        vswhere-path: 'C:\Windows\Microsoft.NET\Framework64\v4.0.30319\'
+        vswhere-path: 'C:\Program Files\Microsoft Visual Studio\2022\Community\MSBuild'
 
 
     - name: Build Solution
