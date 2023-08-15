@@ -34,7 +34,7 @@ jobs:
           /p:DeployOnBuild=true 
           /p:PublishProfile=FolderProfile
           /p:DeleteExistingFiles=True 
-          /p:WebPublishMethod=FolderProfile
+          /p:WebPublishMethod=FileSystem
 
       
     - name: IIS Deploy
