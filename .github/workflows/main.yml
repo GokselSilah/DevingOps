@@ -32,10 +32,9 @@ jobs:
       run: msbuild DevingOps.sln 
           /p:Configuration=Release 
           /p:DeployOnBuild=true 
-          /p:PublishProfile=FolderProfile
+          /p:PublishProfile=C:\Users\gokse\Desktop\Everything\Udemy Projeler\DevingOps\Properties\PublishProfiles\FolderProfile
           /p:DeleteExistingFiles=True 
           /p:WebPublishMethod=FileSystem
-          /p:PublishProfileRootFolder=C:\Users\gokse\Desktop\Everything\Udemy Projeler\DevingOps\Properties\PublishProfiles
 
       
     - name: IIS Deploy
