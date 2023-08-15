@@ -32,7 +32,7 @@ jobs:
       run: msbuild DevingOps.sln 
           /p:Configuration=Release 
           /p:DeployOnBuild=true 
-          /p:PublishProfile=FolderProfile
+          /p:PublishProfile=D:\a\DevingOps\DevingOps\FolderProfile
           /p:DeleteExistingFiles=True 
 
       
