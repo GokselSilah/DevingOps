@@ -15,13 +15,7 @@ jobs:
       uses: microsoft/setup-msbuild@v1.1
 
     - name: Setup NuGet.exe for use with actions
-      uses: NuGet/setup-nuget@v1
-      
-    - name: Navigate to Workspace
-      run: cd $GITHUB_WORKSPACE
-
-    - name: Create Build Directory
-      run: mkdir _build
+      uses: NuGet/setup-nuget@v1      
       
     - name: Restore Packages
       run: nuget restore DevingOps.sln
@@ -30,4 +24,3 @@ jobs:
       run: |
         msbuild.exe DevingOps.sln /nologo /nr:false /p:DeployOnBuild=true /p:DeployDefaultTarget=WebPublish /p:WebPublishMethod=FileSystem /p:DeleteExistingFiles=True /p:platform="Any CPU" /p:configuration="Release" /p:PublishUrl="../_build"
 
-    
