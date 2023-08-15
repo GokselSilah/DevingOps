@@ -24,7 +24,7 @@ jobs:
       run: nuget restore DevingOps.sln
 
     - name: Build the Solution
-      run: msbuild DevingOps.csproj /p:Configuration=Release /p:DeployOnBuild=true 
+      run: msbuild DevingOps.csproj /p:Configuration=Release /p:DeployOnBuild=true /p:WebPublishMethod=Package /p:PublishProfile:Default
 
       
 
