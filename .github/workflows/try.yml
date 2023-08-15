@@ -6,21 +6,18 @@ on:
 
 jobs:
   build:
-    runs-on: windows-latest
+    runs-on: self-hosted
 
     steps:
     - uses: actions/checkout@v2
     
     - name: Setup MSBuild
       uses: microsoft/setup-msbuild@v1.1
+      with:
+        vswhere-path: 'C:\Windows\Microsoft.NET\Framework64\v4.0.30319\'
 
-    - name: Setup NuGet.exe for use with actions
-      uses: NuGet/setup-nuget@v1      
-      
-    - name: Restore Packages
-      run: nuget restore DevingOps.sln
 
     - name: Build Solution
       run: |
-        msbuild.exe DevingOps.sln /nologo /nr:false /p:DeployOnBuild=true /p:DeployDefaultTarget=WebPublish /p:WebPublishMethod=FileSystem /p:DeleteExistingFiles=True /p:platform="Any CPU" /p:configuration="Release" /p:PublishUrl="../_build"
+        msbuild.exe DevingOps.sln /nologo /nr:false /p:DeployOnBuild=true /p:DeployMethod:FolderMethod /p:WebPublishMethod=FileSystem /p:DeleteExistingFiles=True /p:platform="Any CPU" /p:configuration="Release"
 
