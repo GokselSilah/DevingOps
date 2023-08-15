@@ -35,6 +35,7 @@ jobs:
           /p:PublishProfile=FolderProfile
           /p:DeleteExistingFiles=True 
           /p:WebPublishMethod=FileSystem
+          /p:PublishProfileRootFolder=C:\Users\gokse\Desktop\Everything\Udemy Projeler\DevingOps\Properties\PublishProfiles
 
       
     - name: IIS Deploy
