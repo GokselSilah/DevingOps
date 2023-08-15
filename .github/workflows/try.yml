@@ -19,5 +19,5 @@ jobs:
 
     - name: Build Solution
       run: |
-        msbuild.exe 'C:\Users\gokse\Desktop\Everything\Udemy Projeler\DevingOps\DevingOps.sln' /p:configuration="Release" /p:PublishProfile='C:\Users\gokse\Desktop\Everything\Udemy Projeler\DevingOps\Properties\PublishProfiles\FolderProfile.pubxml'
+        msbuild.exe 'C:\Users\gokse\Desktop\Everything\Udemy Projeler\DevingOps\DevingOps.sln' /p:DeployOnBuild=True /p:configuration="Release" /p:PublishProfile='C:\Users\gokse\Desktop\Everything\Udemy Projeler\DevingOps\Properties\PublishProfiles\FolderProfile.pubxml'
 
